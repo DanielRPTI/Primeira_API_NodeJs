@@ -47,3 +47,19 @@ app.get('/tarefas/:id', (req, res) => {
     if(!tarefa) return res.status(404).send('ERRO: ID não encontrado, por favor verificar e tentar novamente!');
     res.send(tarefa);
 });
+
+//Metodo POST
+app.post('/tarefas', (req, res) => {
+    if (!req.body.title)
+        return res.status(404).send('ERRO: A tarefa precisa de um Titulo.');
+
+    tarefa = {
+        id: listas.length + 1, 
+        title: req.body.title, 
+        description: req.body.description,
+        completed: req.body.completed || "Tarefa não realizada" 
+    };
+
+    listas.push(tarefa);
+    res.send(tarefa);
+});
