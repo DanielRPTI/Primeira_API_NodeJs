@@ -81,3 +81,16 @@ app.put('/tarefas/:id', (req, res) => {
     }
     res.send("Tarefa atualizada com sucesso")
 });
+
+//METODO DELETE
+app.delete('/tarefas/:id', (req, res) => {
+    const {id} = req.params;
+
+    let verificId = listas.some((listas) => listas.id == id);
+    if(!verificId)
+        return res.status(404).send('ERRO: TAREFA NÃO PODE SER DELETADA, POIS O ID DIGITADO NÃO FOI ENCONTRADO.');
+
+    listas.splice(id -1, 1);
+    res.send("Tarefa deletada")
+
+})
