@@ -63,3 +63,21 @@ app.post('/tarefas', (req, res) => {
     listas.push(tarefa);
     res.send(tarefa);
 });
+
+//Metodo Put 
+app.put('/tarefas/:id', (req, res) => {
+    const {id} = req.params;
+    let verificId = listas.findIndex((listas) => listas.id == id);
+    if(verificId < 0){
+        return res.status(404).send('ERRO: TAREFA NÃO PODE SER ATUALIZADA POIS O ID É INVALIDO .');
+    }
+    else{
+        const {title, description, completed} = req.body;
+        listas[verificId] = {...listas[verificId], 
+        title: title || listas[verificId].title,
+        description: description || listas[verificId].description,
+        completed: completed || listas[verificId].completed
+        } 
+    }
+    res.send("Tarefa atualizada com sucesso")
+});
