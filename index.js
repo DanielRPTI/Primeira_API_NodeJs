@@ -39,3 +39,11 @@ let listas = [
 app.get('/tarefas', (req, res) => {
     res.send(listas);
 });
+
+//Utilizando o id para puxarmos uma tarefa com o metodo GET/tarefas/:id
+app.get('/tarefas/:id', (req, res) => {
+    const tarefa = listas.find(t => t.id === parseInt(req.params.id));
+    
+    if(!tarefa) return res.status(404).send('ERRO: ID não encontrado, por favor verificar e tentar novamente!');
+    res.send(tarefa);
+});
